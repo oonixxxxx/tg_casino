@@ -4,11 +4,11 @@ import sys
 
 from os import getenv
 
-from aiogram import Bot, Dispatcher, Router, types
+from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 
 from config import TG_BOT_TOKEN
-from app.handlers import router
+from handlers import router
 
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
