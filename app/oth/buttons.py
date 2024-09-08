@@ -1,7 +1,7 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 class Buttons: 
-    menu_button = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Информация о нас 📃✏️'), KeyboardButton(text='Spin 🎰')]],
+    menu_button = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='bank'), KeyboardButton(text='spin 🎰')]],
             resize_keyboard=True,
             input_field_placeholder='Выберите пунт меню.')
     
