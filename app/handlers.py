@@ -23,7 +23,7 @@ def get_combo_text(dice_value: int):
     Альтернативный вариант (ещё раз спасибо t.me/svinerus):
     return [casino[(dice_value - 1) // i % 4]for i in (1, 4, 16)]
     """
-    #           0       1         2        3
+    #           0        1          2       3
     values = ["BAR", "виноград", "лимон", "семь"]
 
     dice_value -= 1
@@ -51,30 +51,28 @@ async def get_menu(message: Message):
 async def roll_dice(message: types.Message):
     data = await bot.send_dice(message.chat.id, emoji='🎰')
     result = get_combo_text(data.dice.value)
-    await bot.send_message(message.chat.id, f'значение слоты {result}')
+    Constanse.bank -= 1000
+    await bot.send_message(message.chat.id, f'значение слоты {result},\nВаш текущий баланс: {Constanse.bank}$')
     
-    if result[0] == result[1] == result[2]:
-        await bot.send_message('jackpot')
-
 
 @router.message(F.text == 'bank')
 async def get_my_bank(message: types.Message):
-    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank}')
+    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank}$')
 
 
 @router.message(F.text == 'add million')
 async def add_million(message: types.Message):
-    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank + 1_000_000}')
+    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank + 1_000_000}$')
     Constanse.bank += 1_000_000
 
 
 @router.message(F.text == 'test spin')
 async def test_spin(message: types.Message):
-    await bot.send_message(message.chat.id, f'Тестовый прокрут совершен. Ваш баланс {Constanse.bank - 1000}')
+    await bot.send_message(message.chat.id, f'Тестовый прокрут совершен. Ваш баланс {Constanse.bank - 1000}$')
     Constanse.bank -= 1000
     
     
 @router.message(F.text == 'reset bank')
 async def reset_bank(message: types.Message):
     Constanse.bank = 0
-    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank}')
+    await bot.send_message(message.chat.id, f'Ваш баланс: {Constanse.bank}$')
