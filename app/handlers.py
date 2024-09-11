@@ -14,13 +14,22 @@ from config import TG_BOT_TOKEN
 router = Router()
 bot = Bot(TG_BOT_TOKEN, parse_mode=ParseMode.HTML)
 
+
 class Constanse:
-    bank = 1_000_000
+    bank = 1_000_000 #initial balance
+    '''jackpots = 0 # number of jackpots for all time
+    lose_money = 0 #money lost
+    get_money = 0 #money earned
+    
+
+def get_statistics(bank, lose_money, win_money, jackpots):
+    return 'Balance: {bank}\nMoney spent: {lose_money}\nMoney won: {win_money}\nNumber of jackpots: {jackpots}\n"'.format()'''
+
+
 
 @router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello! welcome to казик", 
-                         reply_markup=Buttons.menu_button)
+    await message.answer(str(menu_text), reply_markup=Buttons.menu_button)
 
 
 @router.message(F.text == 'В меню🧑🏿‍💻🗂')
@@ -28,8 +37,19 @@ async def get_menu(message: Message):
     await message.answer(str(menu_text), reply_markup=Buttons.menu_button)
 
 
+'''@router.message(F.text =='Statistics')
+async def get_statistics(message: Message):
+    await message.answer(str(get_statistics(Constanse.bank, Constanse.lose_money, Constanse.get_money, Constanse.jackpots)), 
+                         reply_markup=Buttons.statistics_button)'''
+
+
 @router.message(F.text == 'spin 🎰')
-async def roll_dice(message: types.Message):
+async def get_spin_menu(message: types.Message):
+    await message.answer('Выберите стоимость ставки', reply_markup=Buttons.spin_button)
+
+
+@router.message(F.text == 'spin🎰 2500')
+async def roll_dice_2500(message: types.Message):
     
     data = await bot.send_dice(message.chat.id, emoji='🎰')
     result = get_combo_text(data.dice.value)
@@ -38,6 +58,42 @@ async def roll_dice(message: types.Message):
     Constanse.bank += cost
             
     await bot.send_message(message.chat.id, f'Ставка: {2500},\nВыйгрыш: {cost},\nВаш текущий баланс: {Constanse.bank}$')
+
+
+@router.message(F.text == 'spin🎰 5000')
+async def roll_dice_5000(message: types.Message):
+    
+    data = await bot.send_dice(message.chat.id, emoji='🎰')
+    result = get_combo_text(data.dice.value)
+    Constanse.bank -= 5000
+    cost = check_combo(result, 5000)
+    Constanse.bank += cost
+            
+    await bot.send_message(message.chat.id, f'Ставка: {5000},\nВыйгрыш: {cost},\nВаш текущий баланс: {Constanse.bank}$')
+
+
+@router.message(F.text == 'spin🎰 10000')
+async def roll_dice_10000(message: types.Message):
+    
+    data = await bot.send_dice(message.chat.id, emoji='🎰')
+    result = get_combo_text(data.dice.value)
+    Constanse.bank -= 10000
+    cost = check_combo(result, 10000)
+    Constanse.bank += cost
+            
+    await bot.send_message(message.chat.id, f'Ставка: {10000},\nВыйгрыш: {cost},\nВаш текущий баланс: {Constanse.bank}$')
+
+
+@router.message(F.text == 'spin🎰 20000')
+async def roll_dice_20000(message: types.Message):
+    
+    data = await bot.send_dice(message.chat.id, emoji='🎰')
+    result = get_combo_text(data.dice.value)
+    Constanse.bank -= 20000
+    cost = check_combo(result, 20000)
+    Constanse.bank += cost
+            
+    await bot.send_message(message.chat.id, f'Ставка: {20000},\nВыйгрыш: {cost},\nВаш текущий баланс: {Constanse.bank}$')
 
 
 # functions with bank
