@@ -1,12 +1,14 @@
 def get_combo_text(dice_value: int):
-    """
-    Возвращает то, что было на конкретном дайсе-казино
-    :param dice_value: значение дайса (число)
-    :return: массив строк, содержащий все выпавшие элементы в виде текста
-    Альтернативный вариант (ещё раз спасибо t.me/svinerus):
-    return [casino[(dice_value - 1) // i % 4]for i in (1, 4, 16)]
-    """
-    #           0        1          2       3
+    """return dice value as string
+
+
+    Args:
+        dice_value (int)
+
+    Returns:
+        list: list of dices values
+    """    
+    #           0         1        2        3
     values = ["BAR", "виноград", "лимон", "семь"]
 
     dice_value -= 1
@@ -21,9 +23,9 @@ def get_combo_text(dice_value: int):
 
 def check_combo(value, cost):
     """
-    Проверяет, что выпал дайс
-    :param dice_value: значение дайса (число)
-    :return: True, если выпал дайс
+    Checks if the dice have fallen 
+    out :dice_value parameter: the value of the dice (number)
+    returns: True if a bone has fallen out
     """
     const = 0
 

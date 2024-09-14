@@ -13,7 +13,7 @@ from handlers import router
 # All handlers should be attached to the Router (or Dispatcher)
 dp = Dispatcher()
 
-async def main() -> None:
+async def main() -> None:    
     dp.include_router(router)
     bot = Bot(TG_BOT_TOKEN, parse_mode=ParseMode.HTML)
     await dp.start_polling(bot)
