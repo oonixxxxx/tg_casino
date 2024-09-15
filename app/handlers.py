@@ -1,4 +1,4 @@
-# imports
+#imports
 from aiogram import F, Router, types, Bot
 
 from aiogram.filters import CommandStart
@@ -56,8 +56,8 @@ async def add_million(message: types.Message):
 async def test_spin(message: types.Message):
     await bot.send_message(message.chat.id, f'Тестовый прокрут совершен. Ваш баланс {Constanse.bank - 1000}$')
     Constanse.bank -= 2500
-    
-    
+
+
 @router.message(F.text == 'reset bank')
 async def reset_bank(message: types.Message):
     Constanse.bank = 0
